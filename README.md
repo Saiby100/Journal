@@ -1,2 +1,2 @@
 # Login-App
-Basic login app that uses kivy
+Basic login app using kivy GUI
