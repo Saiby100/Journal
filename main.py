@@ -180,7 +180,8 @@ class SignUp(Screen):
 
         label = Label(text=err_msg,
                       size_hint=(1, .1),
-                      font_size=15
+                      font_size=15,
+                      color=(0, 1, .4, 1)
                       )
 
         anchor_layout.add_widget(label)
