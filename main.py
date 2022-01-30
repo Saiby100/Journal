@@ -9,6 +9,8 @@ from login_functions import *
 from kivy.clock import Clock
 from functools import partial
 
+user_name = ''
+
 class NotesApp(App):
     def build(self):
         global screen_manager
@@ -17,7 +19,6 @@ class NotesApp(App):
         screen_manager.add_widget(Home('home_page'))
         screen_manager.add_widget(SignUp('signup_page'))
         screen_manager.add_widget(Login('login_page'))
-        screen_manager.add_widget(Notes('notes_page'))
 
         return screen_manager
 
@@ -200,7 +201,7 @@ class SignUp(Screen):
         self.password_box.text = ''
         self.conf_password_box.text = ''
 
-
+#LOGIN SCREEN
 class Login(Screen):
     def __init__(self, page_name):
         super().__init__(name=page_name)
@@ -286,6 +287,7 @@ class Login(Screen):
 
     def log_in(self, event):
         if login(self.username_box.text, self.password_box.text):
+            screen_manager.add_widget(Notes('notes_page', self.username_box.text))
             screen_manager.current = 'notes_page'
             self.clear_text()
 
@@ -308,13 +310,24 @@ class Login(Screen):
 
 
 class Notes(Screen):
-    def __init__(self, page_name):
+    def __init__(self, page_name, username):
         super().__init__(name=page_name)
+
+        self.code = get_code(username)
         #Initializing Layouts
         anchor_layout = AnchorLayout(anchor_x='left', anchor_y='top', padding=10)
-        box_layout = BoxLayout(orientation='vertical')
+        box_layout = BoxLayout(orientation='vertical', padding=30)
 
-        box_layout.add_widget(Label(text='This is the notes page', font_size=30))
+        notes_label = Label(text='Notes:',
+                            font_size=30,
+                            color=(0, 1, .4, 1),
+                            size_hint=(1, .1)
+                            )
+
+        self.notes_box = TextInput(multiline=True
+                              )
+        if file_exists(self.code):
+            self.notes_box.text = get_file_info(self.code)
 
         back_btn = Button(text='Back',
                           font_size=15,
@@ -325,12 +338,16 @@ class Notes(Screen):
         back_btn.bind(on_release=self.go_back)
 
         anchor_layout.add_widget(back_btn)
+        box_layout.add_widget(notes_label)
+        box_layout.add_widget(self.notes_box)
 
         self.add_widget(anchor_layout)
         self.add_widget(box_layout)
 
     def go_back(self, event):
+        write_to_file(self.code, self.notes_box.text)
         screen_manager.current = 'login_page'
+        screen_manager.remove_widget(screen_manager.get_screen('notes_page'))
 
 if __name__ == '__main__':
     NotesApp().run()
