@@ -8,6 +8,7 @@ from kivy.uix.textinput import TextInput
 from login_functions import *
 from kivy.clock import Clock
 from functools import partial
+from utils import database
 
 user_name = ''
 
@@ -350,4 +351,5 @@ class Notes(Screen):
         screen_manager.remove_widget(screen_manager.get_screen('notes_page'))
 
 if __name__ == '__main__':
-    NotesApp().run()
+    pass
+    # NotesApp().run()
