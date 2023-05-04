@@ -1,7 +1,10 @@
 # Journal App For Your Darkest Secrets (⊙_⊙)
 ## Features
-Multiple accounts.
-Implements a hashing function for authentication.
-Each account has accociated private journal entries.
-Account data is stored in a SQL database.
-Implements a relational database to store each account's respective journal entries.
+* Multiple accounts.
+* Accounts are password protected.
+* Each account has associated journal entries.
+
+## Implementation
+* Hashing for authentication.
+* SQL database for account info.
+* Relational database implementation for storing each account's respective journal entries.
