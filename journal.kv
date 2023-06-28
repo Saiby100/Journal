@@ -1,0 +1,60 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import TextButton widgets.buttons.TextButton
+#:import TextField widgets.textfield.TextField
+#:import Theme utils.theme.Theme
+
+#Widgets
+<TextButton>:
+    size_hint_x: .6
+
+<MDTextField>:
+    mode: "round"
+    size_hint_x: .7
+    fill_color_normal: 1, 1, 1, 0
+    active_line: False
+    hint_text_color_normal: 1, 1, 1, .6
+    text_color_normal: 1, 1, 1, 1
+    text_color_focus: 1, 1, 1, 1
+    size_hint_y: None
+    line_color_focus: get_color_from_hex("FD4A70")
+    line_color_normal: 1, 1, 1, 1
+
+#Pages
+<Home>:
+
+    MDBoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                size: self.size[0], self.size[1]
+                pos: self.pos
+                source: Theme.get_home_bg()
+    
+    MDGridLayout:
+        cols: 2
+
+        Details:
+            id: details_layout
+            spacing: 40
+
+            MDAnchorLayout:
+                anchor_x: "left"
+                anchor_y: "top"
+                padding: 10
+
+            TextButton:
+                id: login_btn
+                text: "Log In"
+                pos_hint: {'center_x': .5,'top': .8}
+                on_release: root.login_pressed()
+
+            TextButton:
+                id: signup_btn
+                text: "Sign Up"
+                pos_hint: {'center_x': .5,'top': .65}
+                on_release: root.signup_pressed()
+        
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_x: .865
+

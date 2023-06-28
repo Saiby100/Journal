@@ -352,4 +352,4 @@ class Notes(Screen):
 
 if __name__ == '__main__':
     pass
-    # NotesApp().run()
+    NotesApp().run()
