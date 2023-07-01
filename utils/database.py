@@ -1,14 +1,30 @@
 import sqlite3
 
 class Database:
+    initialised = False
+    journal_titles = ["Place Holder Title"]
 
-    def __init__():
-        global connection
-        connection = sqlite3.connect("user_data.db")
+    def __init__(self, ) -> None:
+        if not self.initialised:
+            self.init_static_variables()
+            self.initialised = True
+
+    def init_static_variables():
+        pass    
     
-    def add(user):
-        connection.execute("INSERT INTO userTB (username, email, note)")
+    '''
+        Fetches note titles from database.
+    '''
+    def get_journal_entry_titles(self):
+        return self.journal_titles
 
-    def close():
-        connection.commit()
-        connection.close()
+    # def __init__():
+    #     global connection
+    #     connection = sqlite3.connect("user_data.db")
+    
+    # def add(user):
+    #     connection.execute("INSERT INTO userTB (username, email, note)")
+
+    # def close():
+    #     connection.commit()
+    #     connection.close()

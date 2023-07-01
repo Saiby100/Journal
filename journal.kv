@@ -9,18 +9,23 @@
 
 <MDTextField>:
     mode: "round"
-    size_hint_x: .7
+    size_hint: .7, None
     fill_color_normal: 1, 1, 1, 0
     active_line: False
     hint_text_color_normal: 1, 1, 1, .6
-    text_color_normal: 1, 1, 1, 1
-    text_color_focus: 1, 1, 1, 1
-    size_hint_y: .08
-    line_color_focus: get_color_from_hex("FD4A70")
-    line_color_normal: 1, 1, 1, 1
+    text_color_normal: Theme.get_text_colour()
+    text_color_focus: Theme.get_text_colour()
+    line_color_focus: Theme.get_focus_colour()
+    line_color_normal: Theme.get_text_colour()
+    font_size: "18dp"
+
+<JournalEntryCard>:
+    focus_behavior: True
+    md_bg_color: Theme.get_primary_colour()
+    focus_color: Theme.get_focus_colour()
 
 #Pages
-<Home>:
+<Login>:
 
     MDBoxLayout:
         orientation: "vertical"
@@ -28,12 +33,15 @@
             Rectangle:
                 size: self.size[0], self.size[1]
                 pos: self.pos
-                source: Theme.get_home_bg()
+                source: Theme.get_login_bg()
+
+            Color:
+                rgba: 1, 0, 0, .8
     
     MDGridLayout:
         cols: 2
 
-        Details:
+        DetailsLayout:
             id: details_layout
             spacing: 40
 
@@ -57,4 +65,25 @@
         MDBoxLayout:
             orientation: "vertical"
             size_hint_x: .865
+
+<Journal>:
+    MDBoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                size: self.size[0], self.size[1]
+                pos: self.pos
+                source: Theme.get_home_bg()
+    
+    ScrollView:
+        scroll_type: ["bars"]
+        scroll_wheel_distance: 70
+        effect_cls: "ScrollEffect"
+
+        MDStackLayout:
+            id: notes_layout
+            size_hint_y: None
+            spacing: [10, 15]
+            padding: [15, 5]
+            height: self.minimum_height
 

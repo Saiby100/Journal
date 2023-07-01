@@ -13,9 +13,3 @@ class TextButton(MDFlatButton):
         self.line_color = Theme.get_text_colour()
         self._radius = 15
         self.padding = [0, 12]
-    
-    def login(self):
-        pass
-
-    def signup(self):
-        pass

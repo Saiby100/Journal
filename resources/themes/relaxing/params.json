@@ -1,0 +1,7 @@
+{
+    "login_bg": "resources/images/relaxing/login.png",
+    "home_bg": "resources/images/relaxing/home.png",
+    "text_colour": "#FFFFFF",
+    "primary_colour": "#D9CBCB",
+    "focus_colour": "#F89E9E"
+}
