@@ -68,10 +68,10 @@ class DetailsLayout(MDRelativeLayout):
         self._slide([self.btn_fade], 1.25, None)
         self._add_text_fields()
         self.back_btn = MDIconButton(icon="chevron-left",
-                                        icon_size=30,
-                                        theme_icon_color="Custom",
-                                        icon_color=(1, 1, 1, 1),
-                                        opacity=0)
+                                     icon_size=30,
+                                     theme_icon_color="Custom",
+                                     icon_color=(1, 1, 1, 1),
+                                     opacity=0)
 
         self.back_btn.bind(on_release=self._collapse_details)
 

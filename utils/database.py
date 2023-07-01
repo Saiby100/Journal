@@ -15,8 +15,9 @@ class Database:
     '''
         Fetches note titles from database.
     '''
-    def get_journal_entry_titles(self):
-        return self.journal_titles
+    @classmethod
+    def get_journal_entry_titles(cls):
+        return cls.journal_titles
 
     # def __init__():
     #     global connection

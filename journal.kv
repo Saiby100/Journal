@@ -2,6 +2,7 @@
 #:import TextButton widgets.buttons.TextButton
 #:import TextField widgets.textfield.TextField
 #:import Theme utils.theme.Theme
+#:import CategoryLabel widgets.label.CategoryLabel
 
 #Widgets
 <TextButton>:
@@ -23,6 +24,25 @@
     focus_behavior: True
     md_bg_color: Theme.get_primary_colour()
     focus_color: Theme.get_focus_colour()
+    unfocus_color: Theme.get_primary_colour()
+    style: "filled"
+    size_hint: None, None
+    size: 200, 120
+    radius: 25
+
+    MDLabel:
+        text: root.title
+        color: "black"
+        bold: True
+        size_hint: None, None
+        size: root.width, root.height-35
+        pos_hint: {"center_y": .5}
+        halign: "center"
+
+<ProfileButton>:
+    size_hint: None, None
+    size: 50, 50
+    ripple_scale: .85
 
 #Pages
 <Login>:
@@ -76,7 +96,7 @@
                 source: Theme.get_home_bg()
     
     ScrollView:
-        scroll_type: ["bars"]
+        scroll_type: ["bars"] 
         scroll_wheel_distance: 70
         effect_cls: "ScrollEffect"
 
@@ -84,6 +104,26 @@
             id: notes_layout
             size_hint_y: None
             spacing: [10, 15]
-            padding: [15, 5]
+            padding: [30, 10]
             height: self.minimum_height
+        
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        padding: [30, 15]
 
+        ProfileButton:
+            source: "resources/images/profile_icons/image.png"
+            on_release: root.profile_button_pressed()
+    
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "bottom"
+        padding: 20
+
+        MDIconButton:
+            icon: "plus"
+            theme_icon_color: "Custom"
+            icon_color: Theme.get_text_colour()
+            md_bg_color: Theme.get_accent_colour()
+            on_release: root.add_note()

@@ -35,3 +35,7 @@ class Theme:
     def get_primary_colour(cls):
         return get_color_from_hex(cls.params["primary_colour"])
 
+    @classmethod
+    def get_accent_colour(cls):
+        return get_color_from_hex(cls.params["accent_colour"])
+

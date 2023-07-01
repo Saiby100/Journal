@@ -5,8 +5,8 @@ from pages.journal import Journal
 from kivy.core.window import Window
 from utils.theme import Theme
 
-Window.minimum_width, Window.minimum_height = (850, 500)
-Window.size = (850, 500)
+Window.minimum_width, Window.minimum_height = (890, 500)
+Window.size = (890, 500)
 
 class JournalApp(MDApp):
 
@@ -16,7 +16,7 @@ class JournalApp(MDApp):
         Theme("relaxing")
 
         screen_manager = ScreenManager(transition=FadeTransition())
-        screen_manager.add_widget(Login(name="login_page"))
+        # screen_manager.add_widget(Login(name="login_page"))
         screen_manager.add_widget(Journal(name="journal_page"))
 
         return screen_manager

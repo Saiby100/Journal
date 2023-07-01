@@ -3,5 +3,6 @@
     "home_bg": "resources/images/relaxing/home.png",
     "text_colour": "#FFFFFF",
     "primary_colour": "#D9CBCB",
-    "focus_colour": "#F89E9E"
+    "focus_colour": "#F89E9E",
+    "accent_colour": "#562550"
 }
