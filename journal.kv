@@ -3,6 +3,7 @@
 #:import TextField widgets.textfield.TextField
 #:import Theme utils.theme.Theme
 #:import CategoryLabel widgets.label.CategoryLabel
+#:import CustomScrollView widgets.scrollview.CustomScrollView
 
 #Widgets
 <TextButton>:
@@ -27,7 +28,7 @@
     unfocus_color: Theme.get_primary_colour()
     style: "filled"
     size_hint: None, None
-    size: 200, 120
+    size: 180, 110
     radius: 25
 
     MDLabel:
@@ -95,7 +96,7 @@
                 pos: self.pos
                 source: Theme.get_home_bg()
     
-    ScrollView:
+    CustomScrollView:
         scroll_type: ["bars"] 
         scroll_wheel_distance: 70
         effect_cls: "ScrollEffect"
@@ -103,8 +104,8 @@
         MDStackLayout:
             id: notes_layout
             size_hint_y: None
-            spacing: [10, 15]
-            padding: [30, 10]
+            spacing: 15
+            padding: [40, 10]
             height: self.minimum_height
         
     AnchorLayout:
@@ -113,6 +114,7 @@
         padding: [30, 15]
 
         ProfileButton:
+            id: profile_btn
             source: "resources/images/profile_icons/image.png"
             on_release: root.profile_button_pressed()
     
@@ -122,6 +124,7 @@
         padding: 20
 
         MDIconButton:
+            id: add_btn
             icon: "plus"
             theme_icon_color: "Custom"
             icon_color: Theme.get_text_colour()

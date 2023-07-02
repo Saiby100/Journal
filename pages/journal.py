@@ -1,12 +1,20 @@
 from kivy.uix.screenmanager import Screen
 from utils.database import Database as db
+from utils.theme import Theme
 from widgets.card import JournalEntryCard
 from functools import partial
 from widgets.label import CategoryLabel
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.stacklayout import MDStackLayout
+from kivymd.uix.menu import MDDropdownMenu
+from kivy.metrics import dp
+from kivy.animation import Animation
 
 class Journal(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
+
+        self.init_account_options()
 
         entry_titles = self.fetch_journal_titles()
         keys = entry_titles.keys()
@@ -44,13 +52,76 @@ class Journal(Screen):
         return entry_titles
     
     def profile_button_pressed(self):
+        self.menu.open()
         print("display options menu") 
         print("options: logout, change theme, change profile image")
     
     def add_note(self):
+        self.note_category_popup()
         print("Add new journal entry")
         print("go to notes page")
-
     
+    def note_category_popup(self):
+        #TODO: Add gifs
+        items = []
+            
+        layout = MDStackLayout(
+            size_hint_y=None,
+            adaptive_height=True,
+            spacing=10,
+            padding=10)
 
+        for title in self.fetch_journal_titles()["Sad"]:
+            entry = JournalEntryCard(title=title, size=(150, 100))
+            layout.add_widget(entry)
+            items.append(entry)
 
+        self.dialog_box = MDDialog(
+            title=f"[color={Theme.params['text_colour']}]ERROR[/color]",
+            type="custom",
+            auto_dismiss=True,
+            content_cls=layout,
+            md_bg_color=Theme.get_accent_colour(),
+            radius=[20, 20, 20, 20]
+        )
+        self.dialog_box.open()
+    
+    def init_account_options(self):
+        menu_text = ["Log Out", "Change Theme", "Mute", "Switch Users"]
+
+        menu_items = [
+            {
+                "text": text,
+                "viewclass": "OneLineListItem",
+                "height": dp(54),
+                "on_release": lambda x=text: self.menu_btn_pressed(x)
+            } for text in menu_text
+        ]
+
+        self.menu = MDDropdownMenu(
+            caller=self.ids.profile_btn,
+            items=menu_items,
+            width_mult=2.5,
+            size_hint_y=None
+        )
+    
+    def menu_btn_pressed(self, button_text):
+        print(button_text)
+    
+    def hide_buttons(self):
+        fade_anim = Animation(opacity=0, duration=.3)
+
+        self.ids.profile_btn.disabled = True
+        self.ids.add_btn.disabled = True
+
+        fade_anim.start(self.ids.profile_btn)
+        fade_anim.start(self.ids.add_btn)
+
+    def unhide_buttons(self):
+        fade_anim = Animation(opacity=1, duration=.3)
+
+        self.ids.profile_btn.disabled = False
+        self.ids.add_btn.disabled = False
+
+        fade_anim.start(self.ids.profile_btn)
+        fade_anim.start(self.ids.add_btn)
