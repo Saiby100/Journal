@@ -77,7 +77,7 @@ class Journal(Screen):
             items.append(entry)
 
         self.dialog_box = MDDialog(
-            title=f"[color={Theme.params['text_colour']}]ERROR[/color]",
+            title=f"[color={Theme.params['text_colour']}]Choose Mood[/color]",
             type="custom",
             auto_dismiss=True,
             content_cls=layout,
