@@ -9,6 +9,7 @@
 #Widgets
 <TextButton>:
     size_hint_x: .6
+    font_name: "resources/fonts/FrancoisOne-Regular.ttf"
 
 <MDTextField>:
     mode: "round"
@@ -21,6 +22,11 @@
     line_color_focus: Theme.get_focus_colour()
     line_color_normal: Theme.get_text_colour()
     font_size: "18dp"
+    # font_name: "resources/fonts/FrancoisOne-Regular.ttf"
+    font_name_hint_text: "resources/fonts/FrancoisOne-Regular.ttf"
+
+<CategoryLabel>:
+    font_name: "resources/fonts/FrancoisOne-Regular.ttf"
 
 <JournalEntryCard>:
     focus_behavior: True
@@ -40,6 +46,7 @@
         size: root.width, root.height-35
         pos_hint: {"center_y": .5}
         halign: "center"
+        font_name: "resources/fonts/Sriracha-Regular.ttf"
 
 <ProfileButton>:
     size_hint: None, None
@@ -137,7 +144,7 @@
 
         ProfileButton:
             id: profile_btn
-            source: "resources/images/profile_icons/image.png"
+            source: "resources/images/profile_icons/image2.png"
             on_release: root.profile_button_pressed()
     
     AnchorLayout:

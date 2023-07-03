@@ -9,6 +9,7 @@ from kivymd.uix.stacklayout import MDStackLayout
 from kivymd.uix.menu import MDDropdownMenu
 from kivy.metrics import dp
 from kivy.animation import Animation
+from utils import config
 
 class Journal(Screen):
     def __init__(self, **kw):
@@ -87,7 +88,7 @@ class Journal(Screen):
         self.dialog_box.open()
     
     def init_account_options(self):
-        menu_text = ["Log Out", "Change Theme", "Mute", "Switch Users"]
+        menu_text = ["Profile", "Log Out", "Change Theme", "Mute"]
 
         menu_items = [
             {
@@ -106,6 +107,22 @@ class Journal(Screen):
         )
     
     def menu_btn_pressed(self, button_text):
+        if button_text == "Log Out":
+            config.sm.current = "login_page"
+
+        elif button_text == "Change Theme": 
+            #TODO: Show all theme options
+            pass
+        
+        elif button_text == "Mute":
+            #TODO: Mute background music
+            pass
+        
+        elif button_text == "Profile":
+            #TODO: Update profile picture
+            pass
+        
+        self.menu.dismiss()
         print(button_text)
     
     def hide_buttons(self):
@@ -125,3 +142,4 @@ class Journal(Screen):
 
         fade_anim.start(self.ids.profile_btn)
         fade_anim.start(self.ids.add_btn)
+
