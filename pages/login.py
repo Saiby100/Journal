@@ -4,6 +4,7 @@ from kivymd.uix.relativelayout import MDRelativeLayout
 from kivymd.uix.textfield import MDTextField
 from functools import partial
 from kivymd.uix.button import MDIconButton
+from utils import config
 
 
 class DetailsLayout(MDRelativeLayout):
@@ -21,7 +22,7 @@ class DetailsLayout(MDRelativeLayout):
         self.login_expanded = True
         self.btn_fade = btn_fade
         self.btn_drop = btn_slide
-        self.back_btn_layout = self.children[2]
+        self.back_btn_layout = self._get_page().ids.back_btn_layout
 
         new_pos_hint_y = 0.55
         function = partial(self._slide,
@@ -38,7 +39,7 @@ class DetailsLayout(MDRelativeLayout):
         self.signup_expanded = True
         self.btn_fade = btn_fade
         self.btn_drop = btn_slide
-        self.back_btn_layout = self.children[2]
+        self.back_btn_layout = self._get_page().ids.back_btn_layout
 
         new_pos_hint_y = 0.45
         function = partial(self._slide, 
@@ -77,11 +78,15 @@ class DetailsLayout(MDRelativeLayout):
 
         self.back_btn_layout.add_widget(self.back_btn)
         self._fade([self.back_btn], 1, None)
+
+        self._update_gif("curious")
     
     def _on_collapse_complete(self, fade_btn, *args):
         self._fade([self.btn_fade], 1, None)
         self._fade([self.back_btn], 0, lambda *x: self.remove_widget(self.back_btn))
         self._clear_text_fields()
+
+        self._update_gif("normal")
 
         for field in self.fields:
             self.remove_widget(field)
@@ -149,16 +154,54 @@ class DetailsLayout(MDRelativeLayout):
     def _clear_text_fields(self):
         for field in self.fields:
             field.text = ""
+    
+    def _get_page(self):
+        return self.parent.parent
+    
+    def _update_gif(self, gif):
+        if gif == "normal":
+            function = partial(self._fade, 
+                               [self._get_page().ids.gif_normal],
+                               1,
+                               None)
+            self._fade([self._get_page().ids.gif_curious], 
+                       0,
+                       function)
+        else: 
+            function = partial(self._fade, 
+                               [self._get_page().ids.gif_curious],
+                               1,
+                               None)
+            self._fade([self._get_page().ids.gif_normal], 
+                       0,
+                       function)
+
+    def is_expanded(self):
+        return self.login_expanded or self.signup_expanded
 
 class Login(Screen):
 
     def login_pressed(self, *args):
         login_btn = self.ids.login_btn
         signup_btn = self.ids.signup_btn
-        self.ids.details_layout.expand_login_details(signup_btn, login_btn)
+        details_layout = self.ids.details_layout
+
+        if not details_layout.is_expanded():
+            details_layout.expand_login_details(signup_btn, login_btn)
+        
+        else: 
+            #TODO: Verify login credentials here
+            config.sm.current = "journal_page"
             
     def signup_pressed(self, *args):
         login_btn = self.ids.login_btn
         signup_btn = self.ids.signup_btn
-        self.ids.details_layout.expand_signup_details(login_btn, signup_btn)
+        details_layout = self.ids.details_layout
+
+        if not details_layout.is_expanded():
+            details_layout.expand_signup_details(login_btn, signup_btn)
+        
+        else: 
+            #TODO: Verify login credentials here
+            config.sm.current = "journal_page"
     

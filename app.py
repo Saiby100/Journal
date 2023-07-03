@@ -4,6 +4,7 @@ from pages.login import Login
 from pages.journal import Journal
 from kivy.core.window import Window
 from utils.theme import Theme
+from utils import config
 
 Window.minimum_width, Window.minimum_height = (890, 500)
 Window.size = (890, 500)
@@ -13,13 +14,16 @@ class JournalApp(MDApp):
     def build(self):
         global screen_manager
 
+        config.init()
         Theme("relaxing")
 
-        screen_manager = ScreenManager(transition=FadeTransition())
-        # screen_manager.add_widget(Login(name="login_page"))
-        screen_manager.add_widget(Journal(name="journal_page"))
+        return config.sm
+    
+    def on_start(self):
+        config.sm.add_widget(Login(name="login_page"))
+        config.sm.add_widget(Journal(name="journal_page"))
 
-        return screen_manager
+        config.sm.current = "login_page"
 
 if __name__ == "__main__":
     JournalApp().run()
