@@ -27,7 +27,7 @@ class CustomScrollView(ScrollView):
         else:
             self.queue.put(1)
 
-    def start_time(self, queue, duration=1):
+    def start_time(self, queue, duration=.7):
         while True:
             try:
                 queue.get(timeout=duration)

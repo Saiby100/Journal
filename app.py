@@ -1,7 +1,7 @@
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager, FadeTransition
 from pages.login import Login
-from pages.journal import Journal
+from pages.home import Home
 from kivy.core.window import Window
 from utils.theme import Theme
 from utils import config
@@ -21,7 +21,7 @@ class JournalApp(MDApp):
     
     def on_start(self):
         config.sm.add_widget(Login(name="login_page"))
-        config.sm.add_widget(Journal(name="journal_page"))
+        config.sm.add_widget(Home(name="journal_page"))
 
         config.sm.current = "login_page"
 

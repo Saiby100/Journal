@@ -4,5 +4,8 @@
     "text_colour": "#FFFFFF",
     "primary_colour": "#D9CBCB",
     "focus_colour": "#F89E9E",
-    "accent_colour": "#562550"
+    "accent_colour": "#562550",
+    "primary_font": "resources/fonts/FrancoisOne-Regular.ttf",
+    "card_title_font": "resources/fonts/Sriracha-Regular.ttf",
+    "journal_font": "resources/fonts/Sriracha-Regular.ttf"
 }

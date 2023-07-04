@@ -39,3 +39,14 @@ class Theme:
     def get_accent_colour(cls):
         return get_color_from_hex(cls.params["accent_colour"])
 
+    @classmethod
+    def get_primary_font(cls):
+        return cls.params["primary_font"]
+    
+    @classmethod
+    def get_card_title_font(cls):
+        return cls.params["card_title_font"]
+    
+    @classmethod
+    def get_journal_font(cls):
+        return cls.params["journal_font"]

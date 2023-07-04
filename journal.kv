@@ -8,7 +8,7 @@
 #Widgets
 <TextButton>:
     size_hint_x: .6
-    font_name: "resources/fonts/FrancoisOne-Regular.ttf"
+    font_name: Theme.get_primary_font()
 
 <MDTextField>:
     mode: "round"
@@ -21,11 +21,10 @@
     line_color_focus: Theme.get_focus_colour()
     line_color_normal: Theme.get_text_colour()
     font_size: "18dp"
-    # font_name: "resources/fonts/FrancoisOne-Regular.ttf"
-    font_name_hint_text: "resources/fonts/FrancoisOne-Regular.ttf"
+    font_name_hint_text: Theme.get_primary_font()
 
 <CategoryLabel>:
-    font_name: "resources/fonts/FrancoisOne-Regular.ttf"
+    font_name: Theme.get_primary_font()
 
 <JournalEntryCard>:
     focus_behavior: True
@@ -45,7 +44,7 @@
         size: root.width, root.height-35
         pos_hint: {"center_y": .5}
         halign: "center"
-        font_name: "resources/fonts/Sriracha-Regular.ttf"
+        font_name: Theme.get_card_title_font()
 
 <ProfileButton>:
     size_hint: None, None
@@ -115,7 +114,7 @@
             orientation: "vertical"
             size_hint_x: .865
 
-<Journal>:
+<Home>:
     MDBoxLayout:
         orientation: "vertical"
         canvas.before:

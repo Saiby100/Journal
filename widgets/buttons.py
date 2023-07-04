@@ -1,9 +1,6 @@
 from kivymd.uix.button import MDFlatButton
 from utils.theme import Theme
-from kivymd.uix.card import MDCard
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivy.properties import StringProperty
-from kivymd.uix.behaviors import HoverBehavior, CircularRippleBehavior
+from kivymd.uix.behaviors import CircularRippleBehavior
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 
