@@ -5,6 +5,7 @@ from kivymd.uix.textfield import MDTextField
 from functools import partial
 from kivymd.uix.button import MDIconButton
 from utils import config
+from widgets.textfield import TextField
 
 
 class DetailsLayout(MDRelativeLayout):
@@ -14,6 +15,26 @@ class DetailsLayout(MDRelativeLayout):
     password_field = None
     confirm_password_field = None
     fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.username_field = TextField(
+            hint_text="Username",
+            pos_hint={"center_x": .5, "top": .8},
+            opacity=0)
+
+        self.password_field = TextField(
+            hint_text="Password",
+            pos_hint={"center_x": .5, "top": .68},
+            password=True,
+            opacity=0)
+
+        self.confirm_password_field = TextField(
+            hint_text="Confirm Password",
+            pos_hint={"center_x": .5, "top": .55},
+            password=True,
+            opacity=0)
     
     def expand_login_details(self, btn_fade, btn_slide):
         if self.signup_expanded or self.login_expanded:
@@ -41,7 +62,7 @@ class DetailsLayout(MDRelativeLayout):
         self.btn_drop = btn_slide
         self.back_btn_layout = self._get_page().ids.back_btn_layout
 
-        new_pos_hint_y = 0.45
+        new_pos_hint_y = 0.42
         function = partial(self._slide, 
                            [self.btn_drop], 
                            new_pos_hint_y, 
@@ -92,31 +113,11 @@ class DetailsLayout(MDRelativeLayout):
             self.remove_widget(field)
 
     def _add_text_fields(self):
-        if self.username_field is None:
-            self.username_field = MDTextField(
-                hint_text="Username",
-                pos_hint={"center_x": .5, "top": .8},
-                opacity=0)
-
-            self.password_field = MDTextField(
-                hint_text="Password",
-                pos_hint={"center_x": .5, "top": .7},
-                password=True,
-                opacity=0)
-
-            self.confirm_password_field = MDTextField(
-                hint_text="Confirm Password",
-                pos_hint={"center_x": .5, "top": .6},
-                password=True,
-                opacity=0)
-
+        if len(self.fields) == 0:
             self.fields.append(self.username_field)
             self.fields.append(self.password_field)
 
-            if self.signup_expanded:
-                self.fields.append(self.confirm_password_field)
-
-        elif self.signup_expanded and len(self.fields) < 3:
+        if self.signup_expanded and len(self.fields) < 3:
             self.fields.append(self.confirm_password_field)
         
         elif self.login_expanded and len(self.fields) == 3:
@@ -153,7 +154,7 @@ class DetailsLayout(MDRelativeLayout):
     
     def _clear_text_fields(self):
         for field in self.fields:
-            field.text = ""
+            field.clear_text()
     
     def _get_page(self):
         return self.parent.parent

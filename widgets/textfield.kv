@@ -1,0 +1,73 @@
+#:import Theme utils.theme.Theme
+<TextField>:
+    # adaptive_height: True
+    md_bg_color: 1, 1, 1, 1
+    size_hint_x: .7
+    font_name: Theme.get_primary_font()
+    size_hint_y: None
+    height: self.minimum_height
+    multiline: False
+
+    MDCard:
+        radius: [dp(15)]
+        padding: root.card_padding
+        size_hint_y: None
+        height: self.minimum_height
+        elevation: 0
+        pos_hint_y: {"center_y": .5}
+
+        on_release: 
+            root.dispatch("on_release")
+        
+        TextInput:
+            id: textfield
+            focus: root.focus
+            hint_text: root.hint_text
+            multiline: root.multiline
+            line_spacing: root.line_spacing
+            font_family: root.font_family
+            font_size: root.font_size
+            font_name: root.font_name
+            password: root.password
+            background_normal: root.text_field_background_normal
+            background_active: root.text_field_background_active
+            size_hint_y: None
+            height: self.minimum_height
+            cursor_color: root.cursor_color
+
+            on_text:
+                root.text = self.text
+                root.dispatch("on_text")
+
+            on_text_validate:
+                root.dispatch("on_text_validate")
+                
+            on_focus:
+                root.dispatch("on_focus", args[0], args[1])
+                
+            on_triple_tap:
+                root.dispatch("on_triple_tap")
+                
+            on_double_tap:
+                root.dispatch("on_double_tap")
+                
+            on_quad_touch:
+                root.dispatch("on_quad_touch")
+            
+            on_cursor_blink:
+                root.dispatch("on_cursor_blink")
+                
+            on_cursor:
+                root.dispatch("on_cursor")
+                
+            on_size:
+                root.dispatch("on_size")
+                
+            on_handle_image_middle:
+                root.dispatch("on_handle_image_middle")
+                
+            on_handle_image_left:
+                root.dispatch("on_handle_image_left")
+            
+            on_handle_image_right:
+                root.dispatch("on_handle_image_right")      

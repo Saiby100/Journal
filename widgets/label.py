@@ -1,11 +1,7 @@
-from kivymd.uix.label import MDLabel
+from kivy.lang.builder import Builder
+from kivy.uix.label import Label
 
-class CategoryLabel(MDLabel):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+Builder.load_file("widgets/label.kv")
 
-        self.size_hint = (1, None)
-        self.color = "white"
-        self.height = 60
-        self.font_size = 24
-        self.bold = True
+class CategoryLabel(Label):
+    pass

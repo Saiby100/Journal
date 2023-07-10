@@ -1,0 +1,17 @@
+#:import Theme utils.theme.Theme
+
+<TextButton>:
+    font_size: sp(18)
+    theme_text_color: "Custom"
+    text_color: Theme.get_text_colour()
+    line_color: Theme.get_text_colour()
+    _radius: 15
+    padding: [0, 12]
+    size_hint_x: .6
+    font_name: Theme.get_primary_font()
+
+<ProfileButton>:
+    size_hint: None, None
+    size: 50, 50
+    ripple_scale: .85
+

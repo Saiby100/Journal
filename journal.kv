@@ -1,67 +1,12 @@
 #:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import TextButton widgets.buttons.TextButton
+#:import TextButton widgets.button.TextButton
 #:import Theme utils.theme.Theme
 #:import CategoryLabel widgets.label.CategoryLabel
 #:import CustomScrollView widgets.scrollview.CustomScrollView
 #:import Gif widgets.gif.Gif
 
-#Widgets
-<TextButton>:
-    size_hint_x: .6
-    font_name: Theme.get_primary_font()
-
-<MDTextField>:
-    mode: "round"
-    size_hint: .7, None
-    fill_color_normal: 1, 1, 1, 0
-    active_line: False
-    hint_text_color_normal: 1, 1, 1, .6
-    text_color_normal: Theme.get_text_colour()
-    text_color_focus: Theme.get_text_colour()
-    line_color_focus: Theme.get_focus_colour()
-    line_color_normal: Theme.get_text_colour()
-    font_size: "18dp"
-    font_name_hint_text: Theme.get_primary_font()
-
-<CategoryLabel>:
-    font_name: Theme.get_primary_font()
-
-<JournalEntryCard>:
-    focus_behavior: True
-    md_bg_color: Theme.get_primary_colour()
-    focus_color: Theme.get_focus_colour()
-    unfocus_color: Theme.get_primary_colour()
-    style: "filled"
-    size_hint: None, None
-    size: 180, 110
-    radius: 25
-
-    MDLabel:
-        text: root.title
-        color: "black"
-        bold: True
-        size_hint: None, None
-        size: root.width, root.height-35
-        pos_hint: {"center_y": .5}
-        halign: "center"
-        font_name: Theme.get_card_title_font()
-
-<ProfileButton>:
-    size_hint: None, None
-    size: 50, 50
-    ripple_scale: .85
-
-<Gif>:
-    source: root.source
-    size_hint: None, None
-    size: 100, 100
-    anim_delay: .25
-    anim_loop: 0
-
-
 #Pages
 <Login>:
-
     MDBoxLayout:
         orientation: "vertical"
         canvas.before:
@@ -101,13 +46,13 @@
             Gif:
                 id: gif_normal
                 source: "resources/gifs/boy.gif"
-                pos_hint: {"center_x": .5, "top": .35}
+                pos_hint: {"center_x": .5, "top": .32}
             
             Gif:
                 id: gif_curious
                 source: "resources/gifs/boy_huh.gif"
                 size: 90, 90 
-                pos_hint: {"center_x": .5, "top": .35}
+                pos_hint: {"center_x": .5, "top": .32}
                 opacity: 0.0
         
         MDBoxLayout:

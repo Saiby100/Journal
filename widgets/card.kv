@@ -1,0 +1,19 @@
+<JournalEntryCard>:
+    focus_behavior: True
+    md_bg_color: Theme.get_primary_colour()
+    focus_color: Theme.get_focus_colour()
+    unfocus_color: Theme.get_primary_colour()
+    style: "filled"
+    size_hint: None, None
+    size: 180, 110
+    radius: 25
+
+    MDLabel:
+        text: root.title
+        color: "black"
+        bold: True
+        size_hint: None, None
+        size: root.width, root.height-35
+        pos_hint: {"center_y": .5}
+        halign: "center"
+        font_name: Theme.get_card_title_font()
