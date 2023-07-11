@@ -10,12 +10,18 @@ from kivymd.uix.menu import MDDropdownMenu
 from kivy.metrics import dp
 from kivy.animation import Animation
 from utils import config
+from widgets.gif import Gif
+import os
+from kivy.lang.builder import Builder
+
+Builder.load_file("pages/home.kv")
 
 class Home(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
 
-        self.init_account_options()
+        self.init_profile_menu()
+        self.dialog_box = None
 
         entry_titles = self.fetch_journal_titles()
         keys = entry_titles.keys()
@@ -24,7 +30,12 @@ class Home(Screen):
             self.ids.notes_layout.add_widget(CategoryLabel(text=key))
 
             for entry_title in entry_titles[key]:
-                entry = JournalEntryCard(title=entry_title)
+                entry = JournalEntryCard(
+                    title=entry_title,
+                    size_hint=(None, None),
+                    size=(180, 110),
+                    radius=25
+                    )
                 entry.bind(on_release=partial(self.open_journal_entry, entry))
 
                 self.ids.notes_layout.add_widget(entry)
@@ -54,40 +65,39 @@ class Home(Screen):
     
     def profile_button_pressed(self):
         self.menu.open()
-        print("display options menu") 
-        print("options: logout, change theme, change profile image")
     
     def add_note(self):
         self.note_category_popup()
-        print("Add new journal entry")
-        print("go to notes page")
+        #TODO
+        # config.sm.current = "journal_page"
     
     def note_category_popup(self):
-        #TODO: Add gifs
-        items = []
+        if self.dialog_box is None:
+            layout = MDStackLayout(
+                size_hint_y=None,
+                adaptive_height=True,
+                spacing=10,
+                padding=10)
+
+            gifs_path = "resources/gifs/"
+            gifs_arr = os.listdir(gifs_path)
             
-        layout = MDStackLayout(
-            size_hint_y=None,
-            adaptive_height=True,
-            spacing=10,
-            padding=10)
+            for gif in gifs_arr:
+                entry = Gif(source=gifs_path+gif)
+                layout.add_widget(entry)
 
-        for title in self.fetch_journal_titles()["Sad"]:
-            entry = JournalEntryCard(title=title, size=(150, 100))
-            layout.add_widget(entry)
-            items.append(entry)
-
-        self.dialog_box = MDDialog(
-            title=f"[color={Theme.params['text_colour']}]Choose Mood[/color]",
-            type="custom",
-            auto_dismiss=True,
-            content_cls=layout,
-            md_bg_color=Theme.get_accent_colour(),
-            radius=[20, 20, 20, 20]
-        )
+            self.dialog_box = MDDialog(
+                title=f"[color={Theme.params['text_colour']}]Choose Mood[/color]",
+                type="custom",
+                auto_dismiss=True,
+                content_cls=layout,
+                md_bg_color=Theme.get_accent_colour(),
+                radius=[20, 20, 20, 20],
+                size_hint_x=1
+            )
         self.dialog_box.open()
     
-    def init_account_options(self):
+    def init_profile_menu(self):
         menu_text = ["Profile", "Log Out", "Change Theme", "Mute"]
 
         menu_items = [

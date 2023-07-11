@@ -1,12 +1,10 @@
 #:import Theme utils.theme.Theme
+
 <TextField>:
-    # adaptive_height: True
     md_bg_color: 1, 1, 1, 1
-    size_hint_x: .7
     font_name: Theme.get_primary_font()
-    size_hint_y: None
     height: self.minimum_height
-    multiline: False
+    size_hint_y: None
 
     MDCard:
         radius: [dp(15)]
@@ -22,6 +20,8 @@
         TextInput:
             id: textfield
             focus: root.focus
+            size_hint_x: root.size_hint_x
+            size_hint_y: root.size_hint_y
             hint_text: root.hint_text
             multiline: root.multiline
             line_spacing: root.line_spacing
@@ -31,9 +31,9 @@
             password: root.password
             background_normal: root.text_field_background_normal
             background_active: root.text_field_background_active
-            size_hint_y: None
             height: self.minimum_height
             cursor_color: root.cursor_color
+            background_normal: ""
 
             on_text:
                 root.text = self.text

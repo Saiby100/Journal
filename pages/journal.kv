@@ -1,0 +1,36 @@
+#:import Theme utils.theme.Theme
+#:import ProfileButton widgets.button.ProfileButton
+#:import C kivy.utils.get_color_from_hex
+
+<Journal>:
+    MDBoxLayout:
+        orientation: "vertical"
+        canvas.before:
+            Rectangle:
+                size: self.size[0], self.size[1]
+                pos: self.pos
+                source: Theme.get_home_bg()
+    
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        padding: [30, 15]
+
+        ProfileButton:
+            id: profile_btn
+            source: "resources/images/profile_icons/image2.png"
+            on_release: root.profile_button_pressed()
+        
+
+    ScrollView:
+        scroll_type: ["bars"] 
+        scroll_wheel_distance: 70
+        effect_cls: "ScrollEffect"
+
+        MDGridLayout:
+            id: page_layout
+            cols: 1
+            size_hint_y: None
+            padding: [90, 50]
+            height: self.minimum_height
+            spacing: 15

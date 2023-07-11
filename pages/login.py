@@ -6,6 +6,9 @@ from functools import partial
 from kivymd.uix.button import MDIconButton
 from utils import config
 from widgets.textfield import TextField
+from kivy.lang.builder import Builder
+
+Builder.load_file("pages/login.kv")
 
 
 class DetailsLayout(MDRelativeLayout):
@@ -18,21 +21,28 @@ class DetailsLayout(MDRelativeLayout):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        y_ref = .85
 
         self.username_field = TextField(
             hint_text="Username",
-            pos_hint={"center_x": .5, "top": .8},
+            pos_hint={"center_x": .5, "top": y_ref},
+            multiline=False,
+            size_hint_x = .7,
             opacity=0)
 
         self.password_field = TextField(
             hint_text="Password",
-            pos_hint={"center_x": .5, "top": .68},
+            pos_hint={"center_x": .5, "top": y_ref-0.12},
+            multiline=False,
+            size_hint_x = .7,
             password=True,
             opacity=0)
 
         self.confirm_password_field = TextField(
             hint_text="Confirm Password",
-            pos_hint={"center_x": .5, "top": .55},
+            pos_hint={"center_x": .5, "top": y_ref-2*0.12},
+            multiline=False,
+            size_hint_x = .7,
             password=True,
             opacity=0)
     
@@ -192,7 +202,7 @@ class Login(Screen):
         
         else: 
             #TODO: Verify login credentials here
-            config.sm.current = "journal_page"
+            config.sm.current = "home_page"
             
     def signup_pressed(self, *args):
         login_btn = self.ids.login_btn
@@ -204,5 +214,5 @@ class Login(Screen):
         
         else: 
             #TODO: Verify login credentials here
-            config.sm.current = "journal_page"
+            config.sm.current = "home_page"
     

@@ -29,7 +29,7 @@ class TextField(MDBoxLayout, CommonElevationBehavior, ThemableBehavior):
     #TextInput parameters
     text = StringProperty("")
     hint_text = StringProperty("")
-    hint_text_color = ColorProperty([0.5, 0.5, 0.5, 1.0])
+    hint_text_color = ColorProperty([1, 1, 1, .65])
     multiline = BooleanProperty(True)
     background_disabled_normal = StringProperty("")
     text_field_background_normal = StringProperty("")

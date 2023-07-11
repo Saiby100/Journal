@@ -1,11 +1,5 @@
-#:import get_color_from_hex kivy.utils.get_color_from_hex
-#:import TextButton widgets.button.TextButton
 #:import Theme utils.theme.Theme
-#:import CategoryLabel widgets.label.CategoryLabel
-#:import CustomScrollView widgets.scrollview.CustomScrollView
-#:import Gif widgets.gif.Gif
 
-#Pages
 <Login>:
     MDBoxLayout:
         orientation: "vertical"
@@ -58,47 +52,3 @@
         MDBoxLayout:
             orientation: "vertical"
             size_hint_x: .865
-
-<Home>:
-    MDBoxLayout:
-        orientation: "vertical"
-        canvas.before:
-            Rectangle:
-                size: self.size[0], self.size[1]
-                pos: self.pos
-                source: Theme.get_home_bg()
-    
-    CustomScrollView:
-        scroll_type: ["bars"] 
-        scroll_wheel_distance: 70
-        effect_cls: "ScrollEffect"
-
-        MDStackLayout:
-            id: notes_layout
-            size_hint_y: None
-            spacing: 15
-            padding: [40, 10]
-            height: self.minimum_height
-        
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "top"
-        padding: [30, 15]
-
-        ProfileButton:
-            id: profile_btn
-            source: "resources/images/profile_icons/image2.png"
-            on_release: root.profile_button_pressed()
-    
-    AnchorLayout:
-        anchor_x: "right"
-        anchor_y: "bottom"
-        padding: 20
-
-        MDIconButton:
-            id: add_btn
-            icon: "plus"
-            theme_icon_color: "Custom"
-            icon_color: Theme.get_text_colour()
-            md_bg_color: Theme.get_accent_colour()
-            on_release: root.add_note()
