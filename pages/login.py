@@ -28,6 +28,7 @@ class DetailsLayout(MDRelativeLayout):
             pos_hint={"center_x": .5, "top": y_ref},
             multiline=False,
             size_hint_x = .7,
+            radius=10,
             opacity=0)
 
         self.password_field = TextField(
@@ -35,6 +36,7 @@ class DetailsLayout(MDRelativeLayout):
             pos_hint={"center_x": .5, "top": y_ref-0.12},
             multiline=False,
             size_hint_x = .7,
+            radius=10,
             password=True,
             opacity=0)
 
@@ -43,6 +45,7 @@ class DetailsLayout(MDRelativeLayout):
             pos_hint={"center_x": .5, "top": y_ref-2*0.12},
             multiline=False,
             size_hint_x = .7,
+            radius=10,
             password=True,
             opacity=0)
     

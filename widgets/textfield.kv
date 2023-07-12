@@ -1,13 +1,12 @@
 #:import Theme utils.theme.Theme
 
 <TextField>:
-    md_bg_color: 1, 1, 1, 1
     font_name: Theme.get_primary_font()
     height: self.minimum_height
     size_hint_y: None
 
     MDCard:
-        radius: [dp(15)]
+        radius: root.radius
         padding: root.card_padding
         size_hint_y: None
         height: self.minimum_height
@@ -19,6 +18,7 @@
         
         TextInput:
             id: textfield
+            text: root.initial_text
             focus: root.focus
             size_hint_x: root.size_hint_x
             size_hint_y: root.size_hint_y

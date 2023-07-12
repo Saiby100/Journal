@@ -19,7 +19,7 @@ class TextField(MDBoxLayout, CommonElevationBehavior, ThemableBehavior):
 
     #Card (Background) parameters
     elevation = NumericProperty(0)
-    radius = VariableListProperty([10], length=4)
+    radius = VariableListProperty([0], length=4)
     card_ripples = BooleanProperty(False)
     card_padding = dp(5)
     card_spacing = NumericProperty(0)
@@ -40,6 +40,7 @@ class TextField(MDBoxLayout, CommonElevationBehavior, ThemableBehavior):
     font_size = NumericProperty('15sp')
     password = BooleanProperty(False)
     cursor_color = ColorProperty(get_color_from_hex("#F89E9E"))
+    initial_text = StringProperty("")
 
     handle_image_middle = StringProperty(
         'atlas://data/images/defaulttheme/selector_middle')

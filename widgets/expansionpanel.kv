@@ -1,16 +1,17 @@
 #:import Theme utils.theme.Theme
+#:import TextField widgets.textfield.TextField
 
 <PanelContent>:
-    orientation: 'vertical'
-    size_hint_y: .8
+    cols: 1
     md_bg_color: Theme.get_primary_colour()
+    adaptive_height: True
 
-    MDLabel:
-        id: label
-        text: root.text
-        adaptive_height: True
-        # font_name: Theme.get_card_title_font()
-        # md_bg_color: Theme.get_primary_colour()
+    TextField:
+        id: textfield
+        initial_text: root.text
+        multiline: True
+        font_name: Theme.get_card_title_font()
+        md_bg_color: Theme.get_primary_colour()
 
 <ExpansionPanelTitle>:
     bg_color: Theme.get_primary_colour()

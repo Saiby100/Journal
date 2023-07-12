@@ -7,10 +7,11 @@ from kivymd.uix.card import MDCard
 from kivymd.uix.list import IconRightWidget
 from utils.theme import Theme
 from kivymd.uix.label import MDLabel
+from kivymd.uix.gridlayout import MDGridLayout
 
 Builder.load_file("widgets/expansionpanel.kv")
 
-class PanelContent(MDBoxLayout):
+class PanelContent(MDGridLayout):
     text = StringProperty("")
 
     def fade_in_text(self):
@@ -58,23 +59,20 @@ class ExpansionPanel(MDCard):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # layout = MDBoxLayout(orientation='vertical', 
-        #                      size_hint_y=.8)
-        # label = MDLabel(text=self.text, 
-        #                 font_name=Theme.get_card_title_font(),
-        #                 md_bg_color=(0, .5, .5, 1))
-        # layout.add_widget(label)
+
         self.content = PanelContent(text=self.text)
-        print(self.content.ids.label.height, self.content.ids.label.text)
-        self.expanded_height = self.height + self.content.height + 60
 
     def expand(self):
+        self.expanded_height = self.height + self.content.ids.textfield.height
         self._set_arrow_expanded()
-
         if self.content is not None:
             self._set_card_expanded()
 
         self.expanded = True
+        print("self "+str(self.height), 
+              "textfield "+str(self.content.ids.textfield.height), 
+              "panel "+str(self.content.height),
+              "total "+str(self.expanded_height))
     
     def collapse(self):
         self._set_arrow_collapsed()
