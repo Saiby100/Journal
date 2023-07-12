@@ -5,6 +5,8 @@ from kivy.properties import StringProperty, BooleanProperty, NumericProperty, Ob
 from kivy.animation import Animation
 from kivymd.uix.card import MDCard
 from kivymd.uix.list import IconRightWidget
+from utils.theme import Theme
+from kivymd.uix.label import MDLabel
 
 Builder.load_file("widgets/expansionpanel.kv")
 
@@ -56,7 +58,15 @@ class ExpansionPanel(MDCard):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.content = PanelContent(self.text)
+        # layout = MDBoxLayout(orientation='vertical', 
+        #                      size_hint_y=.8)
+        # label = MDLabel(text=self.text, 
+        #                 font_name=Theme.get_card_title_font(),
+        #                 md_bg_color=(0, .5, .5, 1))
+        # layout.add_widget(label)
+        self.content = PanelContent(text=self.text)
+        print(self.content.ids.label.height, self.content.ids.label.text)
+        self.expanded_height = self.height + self.content.height + 60
 
     def expand(self):
         self._set_arrow_expanded()
@@ -81,16 +91,17 @@ class ExpansionPanel(MDCard):
         Animation(angle=0, duration=.2).start(self.ids.arrow)
     
     def _set_card_expanded(self):
+        Animation(size_hint_y=.15, duration=.4).start(self.ids.title)
+        grow_anim = Animation(height=self.expanded_height, duration=.3)
+        grow_anim.start(self)
         self.add_widget(self.content)
-        self.ids.title.size_hint_y = .15
-        Animation(height=self.height+self.content.height, duration=.3).start(self)
     
     def _set_card_collapsed(self):
         shrink_anim = Animation(height=self.initial_height, duration=.3)
         shrink_anim.bind(on_complete=lambda *x: self.remove_widget(self.content))
 
         def shrink_title():
-            self.ids.title.size_hint_y = 1        
+            Animation(size_hint_y=1, duration=.4).start(self.ids.title)
 
         shrink_anim.bind(on_complete=lambda *x: shrink_title())
 
