@@ -8,7 +8,7 @@ from kivy.uix.textinput import TextInput
 from login_functions import *
 from kivy.clock import Clock
 from functools import partial
-from utils import database
+from . import database
 
 user_name = ''
 
