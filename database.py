@@ -43,11 +43,12 @@ def find_rows(cursor, table_name, **kwargs):
     if len(kwargs) == 0:
         query = f"SELECT * FROM {table_name}" 
     else:
-        query = f"SELECT * FROM {table_name} WHERE {kwargs.keys()[0]}"
+        key = list(kwargs.keys())[0]
+        query = f"SELECT * FROM {table_name} WHERE {key} = {kwargs[key]}"
 
-    # cursor.execute(query)
-    # for row in cursor:
-    #     print(row)
+    cursor.execute(query)
+    for row in cursor:
+        print(row)
 
 def delete_table(cursor, table_name):
     query = f"DROP TABLE {table_name}"
@@ -74,4 +75,4 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 table_name = "Test"
 
-find_rows(cursor, table_name)
+find_rows(cursor, table_name, name="Salahuddin")
