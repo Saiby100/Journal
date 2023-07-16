@@ -15,7 +15,7 @@ def add_table(cursor, table_name, **kwargs):
     query = query[:len(query)-2] +")" #Remove comma, space, and add close parenthesis
     cursor.execute(query)
 
-def show_params(cursor, table_name):
+def describe_table(cursor, table_name):
     query = f"DESCRIBE {table_name}"
     cursor.execute(query)
 
@@ -39,12 +39,27 @@ def add_entry(db, cursor, table_name, **kwargs):
     cursor.execute(query, tuple(kwargs.values()))
     db.commit()
 
-def find_rows(cursor, table_name, **kwargs):
+def find_rows(cursor, table_name, *args, **kwargs):
+    '''
+        args = attributes to show.
+        kwargs = conditions.
+    '''
+
+    if len(args) > 0:
+        attr = ""
+        for arg in args:
+            attr  += (arg + ", ")
+        
+        attr = attr[:len(attr)-2]
+    else:
+        attr = "*"
+
     if len(kwargs) == 0:
-        query = f"SELECT * FROM {table_name}" 
+        query = f"SELECT {attr} FROM {table_name}" 
+
     else:
         key = list(kwargs.keys())[0]
-        query = f"SELECT * FROM {table_name} WHERE {key} = {kwargs[key]}"
+        query = f"SELECT {attr} FROM {table_name} WHERE {key} = {kwargs[key]}"
 
     cursor.execute(query)
     for row in cursor:
@@ -62,6 +77,10 @@ def print_all_tables(cursor):
     for table in tables:
         print(table[0])
 
+def add_column(cursor, table_name, col_name, dtype):
+    query = f"ALTER TABLE {table_name} ADD COLUMN {col_name} {dtype}"
+    cursor.execute(query)
+
 params = {}
 with open("utils/info.json", "r") as file:
     params = json.load(file)
@@ -75,4 +94,4 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 table_name = "Test"
 
-find_rows(cursor, table_name, name="Salahuddin")
+describe_table(cursor, table_name)
