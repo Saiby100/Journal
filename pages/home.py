@@ -1,5 +1,4 @@
 from kivy.uix.screenmanager import Screen
-from database import Database as db
 from utils.theme import Theme
 from widgets.card import JournalEntryCard
 from functools import partial

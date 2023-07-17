@@ -21,11 +21,11 @@ class JournalApp(MDApp):
         return config.sm
     
     def on_start(self):
-        # config.sm.add_widget(Login(name="login_page"))
-        # config.sm.add_widget(Home(name="home_page"))
-        config.sm.add_widget(Journal(name="journal_page"))
+        config.sm.add_widget(Login(name="login_page"))
+        config.sm.add_widget(Home(name="home_page"))
+        # config.sm.add_widget(Journal(name="journal_page"))
 
-        # config.sm.current = "login_page"
+        config.sm.current = "login_page"
 
 if __name__ == "__main__":
     JournalApp().run()
