@@ -1,6 +1,15 @@
 import mysql.connector
 import json
 from datetime import datetime
+from mysql.connector.errors import ProgrammingError, IntegrityError
+
+#Database format
+# db._add_table("Users", id="int AUTO_INCREMENT PRIMARY KEY", name="VARCHAR(50) NOT NULL, UNIQUE(name)", password="VARCHAR(50) NOT NULL")
+# db._add_table("Notes", 
+# id="int AUTO_INCREMENT PRIMARY KEY", 
+# userId="int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id) ON DELETE CASCADE", 
+# title="VARCHAR(50)", text="MEDIUMTEXT", 
+# tag="ENUM('Happy', 'Embarrassed', 'Exciting', 'Sad', 'Love', 'Comforting')")
 
 def fetch_params(path):
     '''
@@ -106,36 +115,66 @@ class Database:
         with open("resources/info.json", "r") as file:
             params = json.load(file)
 
-        self.db = mysql.connector.connect(
-            host=params["host"],
-            user=params["user"],
-            passwd=params["password"],
-            database="journalapp"
-        )
+        try: 
+            self.db = mysql.connector.connect(
+                host=params["host"],
+                user=params["user"],
+                passwd=params["password"],
+                database="journalapp"
+            )
 
-        self.cursor = self.db.cursor()
+            self.cursor = self.db.cursor()
+
+        except ProgrammingError:
+            #Create database
+            self.db = mysql.connector.connect(
+                host=params["host"],
+                user=params["user"],
+                passwd=params["password"]
+            )
+
+            self.cursor = self.db.cursor()
+            self.cursor.execute("CREATE DATABASE journalapp")
+
+            self.db = mysql.connector.connect(
+                host=params["host"],
+                user=params["user"],
+                passwd=params["password"],
+                database="journalapp"
+            )
+
+            self.cursor = self.db.cursor()
     
     def add_user(self, username, password):
-        if (self._user_exists(username)):
+        try:
+            query = f"INSERT INTO Users (name, password) VALUES (%s,%s)"
+            self.cursor.execute(query, (username, password))
+            self.db.commit()
+        
+        except IntegrityError:
+            print(f"User with name '{username}' already exists")
             return False
-
-        query = f"INSERT INTO Users (name, passwd) VALUES (%s,%s)"
-        self.cursor.execute(query, (username, password))
-        self.db.commit()
 
         return True
     
-    def add_note(self, username, tag, text):
-        query = f"INSERT INTO Notes (username, tag, text) VALUES (%s,%s,%s)"
+    def add_note(self, userId, title, tag, text):
+        try:
+            query = f"INSERT INTO Notes (userId, title, text, tag) VALUES (%s,%s,%s,%s)"
 
-        self.cursor.execute(query, (username, tag, text))
-        self.db.commit()
-    
-    def get_notes(self, username, tag=None):
+            self.cursor.execute(query, (userId, title, text, tag))
+            self.db.commit()
+
+        except IntegrityError:
+            print("No user exists for the provided id")
+            return False
+
+        return True
+
+    def get_notes(self, userId, tag=None):
         if tag is None:
-            return self._find_rows("Notes", username=username)
+            return self._find_rows("Notes", username=userId)
         else:
-            return self._find_rows("Notes", username=username, tag=tag)
+            return self._find_rows("Notes", username=userId, tag=tag)
 
     def _user_exists(self, username):
         uname = f"'{username}'"
