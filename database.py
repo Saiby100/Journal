@@ -126,24 +126,8 @@ class Database:
             self.cursor = self.db.cursor()
 
         except ProgrammingError:
-            #Create database
-            self.db = mysql.connector.connect(
-                host=params["host"],
-                user=params["user"],
-                passwd=params["password"]
-            )
-
-            self.cursor = self.db.cursor()
-            self.cursor.execute("CREATE DATABASE journalapp")
-
-            self.db = mysql.connector.connect(
-                host=params["host"],
-                user=params["user"],
-                passwd=params["password"],
-                database="journalapp"
-            )
-
-            self.cursor = self.db.cursor()
+            print("Unable to connect to database.")
+            exit(-1)
     
     def add_user(self, username, password):
         try:
@@ -250,3 +234,5 @@ class Database:
 
 if __name__ == "__main__":
     db = Database()
+    
+
